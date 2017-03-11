@@ -4,6 +4,9 @@ import numpy as np
 import cv2
 from detection.shared_functions import get_hog_features, bin_spatial, color_hist, convert_color
 from sklearn.preprocessing import StandardScaler
+from sklearn.model_selection import train_test_split
+from sklearn.ensemble import AdaBoostClassifier
+import time
 
 # for testing
 # return 1 once per frequency i.e. higher number is less often

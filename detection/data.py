@@ -38,7 +38,6 @@ file_urls = {
 	}
 }
 
-
 def load_data(size='small'):
 	folder_path = full_path("data/"+size)
 	if os.path.isdir(folder_path) == False:
@@ -102,10 +101,10 @@ def unzip_data(zip_file_name, location):
 
 def open_pickle_file(file_name):
 	print("Unpickling file " + file_name + ".")
-	full_file_name = data_file_path(file_name)
+	full_file_name = full_path(file_name)
 	with open(full_file_name, mode='rb') as f:
 		return pickle.load(f)
 
 def save_pickle_file(file, data):
-	abs_file = data_file_path(file)
+	abs_file = full_path(file)
 	pickle.dump(data, open(abs_file, "wb" ) )
