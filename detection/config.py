@@ -2,6 +2,7 @@
 
 from sklearn.ensemble import AdaBoostClassifier
 from sklearn.svm import LinearSVC
+import random
 
 class DetectionConfig:
 	"""
@@ -54,6 +55,8 @@ class DetectionConfig:
 			return AdaBoostClassifier(base_estimator=None, n_estimators=self.n_estimators, learning_rate=self.learning_rate, random_state=rand_state)
 		elif self.classifier_name is "LinearSVC":
 			return LinearSVC(random_state=rand_state, tol=0.001, dual=False)
+		elif self.classifier_name is "Random":
+			return RandomCLF()
 		else:
 			return None
 
@@ -70,3 +73,20 @@ class DetectionConfig:
 		:returns: String
 	  """
 		return "scaler_" + self.tag_name() + ".p"
+
+class RandomCLF:
+  """
+  A "classifier" which randomly assigns returns true. Helpful when testing drawing bounding boxes
+  :param frequency: Int, return 1 once per frequency i.e. higher number is less often
+  """
+  def __init__(self, frequency=100):
+    self.frequency = frequency
+
+  def predict(self, features):
+    """
+    Matching classifier function signiture. Returns 1 or 0.
+    :param features: doesnt matter.
+    """
+    if random.randint(0, self.frequency) >= self.frequency - 1:
+      return 1
+    return 0

@@ -110,7 +110,7 @@ class Road:
 
     self.full_heatmap = np.copy(heatmap)
     # Zero out pixels below the threshold
-    heatmap[double(heatmap) <= self.bbox_size * self.threshold] = 0
+    heatmap[heatmap <= self.bbox_size * self.threshold] = 0
     heatmap = np.clip(heatmap, 0, 255)
     self.threshold_heatmap = np.copy(heatmap)
     return label(heatmap)

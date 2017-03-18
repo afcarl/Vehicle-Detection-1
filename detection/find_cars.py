@@ -4,26 +4,8 @@ import numpy as np
 import cv2
 from detection.shared_functions import get_hog_features, color_hist, convert_color, feature_vector, bin_spatial
 from sklearn.preprocessing import StandardScaler
-from detection.config import DetectionConfig
+from detection.config import DetectionConfig, RandomCLF
 import matplotlib.pyplot as plt
-import random
-
-class RandomCLF:
-  """
-  A "classifier" which randomly assigns returns true. Helpful when testing drawing bounding boxes
-  :param frequency: Int, return 1 once per frequency i.e. higher number is less often
-  """
-  def __init__(self, frequency=100):
-    self.frequency = frequency
-
-  def predict(self, features):
-    """
-    Matching classifier function signiture. Returns 1 or 0.
-    :param features: doesnt matter.
-    """
-    if random.randint(0, self.frequency) >= self.frequency - 1:
-      return 1
-    return 0
 
 class CarFinder:
   """
@@ -51,10 +33,9 @@ class CarFinder:
     """
     return find_cars(image, ystart, ystop, scale, self.clf, self.scaler, self.config, self.verbose)
 
-# Define a single function that can extract features using hog sub-sampling and make predictions
 def find_cars(img, ystart, ystop, scale, clf, scaler, config, verbose):
   """
-  find cars in image using a classifier.
+  extract features using hog sub-sampling and make predictions
 
   Passes a color histogram, a reduced image, and hog features to the classifier. The hog features
   are calculated once for the entire image and then the image is scanned using a sliding window

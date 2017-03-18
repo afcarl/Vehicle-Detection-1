@@ -7,12 +7,12 @@ from detection.config import DetectionConfig
 from sklearn.preprocessing import StandardScaler
 
 def extract_features(imgs, config=DetectionConfig()):
-  """
-  extract features from a list of images
-  :param imgs: Array
-  :param config: DetectionConfig, config values to use
-  :returns: Array of array of features
-  """
+	"""
+	extract features from a list of images
+	:param imgs: Array
+	:param config: DetectionConfig, config values to use
+	:returns: Array of array of features
+	"""
 	print("extracting features from", len(imgs), "images")
 	# Create a list to append feature vectors to
 	features = []
@@ -24,12 +24,12 @@ def extract_features(imgs, config=DetectionConfig()):
 	return features 
 
 def extract_feature(img, config=DetectionConfig()):
-  """
-  extract features from a single image
-  :param img: Array
-  :param config: DetectionConfig, config values to use
-  :returns: Array of features
-  """	
+	"""
+	extract features from a single image
+	:param img: Array
+	:param config: DetectionConfig, config values to use
+	:returns: Array of features
+	"""	
 	cspace_img = convert_color(img, 'RGB2' + config.cspace)/255
 	hog_img = convert_color(img, 'RGB2' + config.hog_cspace)/255
 	hist_features = color_hist(cspace_img, nbins=config.hist_bins)
@@ -41,13 +41,13 @@ def extract_feature(img, config=DetectionConfig()):
 	return feature_vector(hog0, hog1, hog2, hist_features, binned_features)
 
 def test_train_data(X_scaler, rand_state, config=DetectionConfig()):
-  """
-  loads data and then splits it into test and train. Also fits the scaler
-  :param X_scaler: the scaler to use. Un-fit
+	"""
+	loads data and then splits it into test and train. Also fits the scaler
+	:param X_scaler: the scaler to use. Un-fit
 	:param rand_state: the random state to use
-  :param config: DetectionConfig, config values to use
-  :returns: X_train, X_test, y_train, y_test image sets
-  """	
+	:param config: DetectionConfig, config values to use
+	:returns: X_train, X_test, y_train, y_test image sets
+	"""	
 	t = time.time()
 	# load data
 	vehicles_images, non_vehicles_images = load_data(config.size)
@@ -69,13 +69,13 @@ def test_train_data(X_scaler, rand_state, config=DetectionConfig()):
 	return X_train, X_test, y_train, y_test
 
 def train_classifier(X_train, X_test, y_train, y_test, X_scaler, rand_state, config=DetectionConfig()):
-  """
-  tran a classifier
-  :param X_scaler: the scaler to use. Un-fit
+	"""
+	tran a classifier
+	:param X_scaler: the scaler to use. Un-fit
 	:param rand_state: the random state to use
-  :param config: DetectionConfig, config values to use
-  :returns: X_train, X_test, y_train, y_test image sets
-  """	
+	:param config: DetectionConfig, config values to use
+	:returns: X_train, X_test, y_train, y_test image sets
+	"""	
 	clf = config.classifier(rand_state)
 
 	# Check the training time for the SVC
