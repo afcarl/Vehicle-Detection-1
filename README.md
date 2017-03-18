@@ -75,7 +75,7 @@ In looking at the false positives, I think my classifier is mostly looking for b
 ## Step 4: Apply classifier to video
 Applying the classifier and sliding window technique to the video is similar to applying to to a single image except we are able to leverage previous frame detections when drawing the bounding boxes. I used the last 8 frames when collecting and drawing the bounding boxes. This made the solution more robust as it is able to remove false positives from a single frame. This is done in `detection/road.py`. 
 
-[![Project Video Link](https://j.gifs.com/oYlLxj.gif)](https://youtu.be/sp2r754g_Xk)
+[![Project Video Link](https://j.gifs.com/oYlLxj.gif)](https://www.youtube.com/watch?v=sp2r754g_Xk)
 
 ## Reflections
 Overall this was again a difficult project because there were so many params to tune. Selecting a single param in isolation is normally not very difficult but obviously all the params are intertwined with each other so any one decision effects all the other ones. In some ways I feel like I am the Stochastic Gradient Decent optimizer slowly working my around the feature space looking for an optimized answer. 
